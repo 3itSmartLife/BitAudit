@@ -29,7 +29,7 @@ class AuditModel:
 
     def audit(self, contract_codes):
         prompt = PROMPT_TEMPLATE%contract_codes
-        inputs = self.tokenizer(prompt, return_tensors="pt").to(self.device)
+        inputs = self.tokenizer(prompt, return_tensors="pt").to(self.config.neuron.device)
 
         # Check if smart contract code length doesn't exceed the model's max token length
         if len(inputs.input_ids[0]) > self.config.neuron.model.max_token_length - 100:
