@@ -119,6 +119,7 @@ pm2 start neurons/validator.py --name validator --interpreter python3 --
 --wallet.hotkey <your validator hotkey>
 --axon.port <an open port to serve the bittensor axon on>
 --logging.debug # run in debug mode, alternatively --logging.trace for trace mode
+--neuron.device cpu # set the device as cpu for validators to run without gpu
 ```
 
 ## License
