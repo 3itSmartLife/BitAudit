@@ -22,7 +22,6 @@ import bittensor as bt
 
 # Bittensor Miner Template:
 import bitaudit
-from bitaudit.miner.openai import validating_smart_contract_for_miner
 
 # import base miner class which takes care of most of the boilerplate
 from bitaudit.base.miner import BaseMinerNeuron
