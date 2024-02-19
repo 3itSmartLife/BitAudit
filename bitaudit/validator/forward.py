@@ -69,7 +69,7 @@ async def forward(self):
             label = new_label
             smart_contract = new_smart_contract
     except Exception as e:
-        bt.logging.error("Error refactoring the code, returning the original one.")
+        bt.logging.warning("Failed to refactor the code, returning the original one.")
 
 
     available_axon_count = len(self.metagraph.axons) - 1 #Exclude itself
