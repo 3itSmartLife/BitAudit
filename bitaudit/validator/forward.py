@@ -128,7 +128,7 @@ async def forward(self):
         audit_results = [lowercase_dict(result) for result in audit_results]
 
         # Score miners based on responses from miners.
-        rewards = get_rewards(self, label=label, responses=audit_results, response_times=execute_times)
+        rewards = get_rewards(self, label=label, responses=audit_results, response_times=execute_times).to('cpu')
 
         bt.logging.info(f"Scored responses: {rewards}")
         bt.logging.info(f"Corresponding uids: {miner_uids}")

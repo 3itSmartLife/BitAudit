@@ -244,13 +244,29 @@ class BaseValidatorNeuron(BaseNeuron):
             wallet=self.wallet,
             netuid=self.config.netuid,
             uids=processed_weight_uids, # uint_uids,
-            weights=processed_weights, # uint_weights,
-            wait_for_finalization=False,
+            weights=processed_weights.to('cpu'), # uint_weights,
+            wait_for_finalization=True,
             # wait_for_inclusion=True,
             version_key=self.spec_version,
         )
-        if result is True:
-            bt.logging.info(f"set_weights on chain successfully! {processed_weights}")
+
+        for _ in range(10):
+            if result[0]: break
+            bt.logging.debug("Retrying to set weights")
+            result = self.subtensor.set_weights(
+                wallet=self.wallet,
+                netuid=self.config.netuid,
+                uids=processed_weight_uids, # uint_uids,
+                weights=processed_weights, # uint_weights,
+                wait_for_finalization=True,
+                # wait_for_inclusion=True,
+                version_key=self.spec_version,
+            )
+            bt.logging.debug(str(result))
+            time.sleep(30)
+
+        if result[0] is True:
+            bt.logging.success(f"set_weights on chain successfully! {processed_weights}")
         else:
             bt.logging.error("set_weights failed")
 

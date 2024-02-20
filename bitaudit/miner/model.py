@@ -56,11 +56,12 @@ class AuditModel:
                 torch.cuda.empty_cache()
             except:
                 pass
+            return {}
+
         try:
             gc.collect()
             torch.cuda.empty_cache()
         except:
             pass
-
 
         return json.loads(output)
