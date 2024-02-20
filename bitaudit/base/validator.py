@@ -263,7 +263,7 @@ class BaseValidatorNeuron(BaseNeuron):
                 version_key=self.spec_version,
             )
             bt.logging.debug(str(result))
-            time.sleep(30)
+            time.sleep(5)
 
         if result[0] is True:
             bt.logging.success(f"set_weights on chain successfully! {processed_weights}")
