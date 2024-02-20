@@ -250,7 +250,7 @@ class BaseValidatorNeuron(BaseNeuron):
             version_key=self.spec_version,
         )
 
-        for _ in range(10):
+        for _ in range(4):
             if result[0]: break
             bt.logging.debug("Retrying to set weights")
             result = self.subtensor.set_weights(
