@@ -192,7 +192,7 @@ class BaseMinerNeuron(BaseNeuron):
             chain_weights[self.uid] = 1
 
             # --- Set weights.
-            bt.logging.debug('Setting weights ...')
+            # bt.logging.debug('Setting weights ...')
             result = self.subtensor.set_weights(
                 wallet=self.wallet,
                 netuid=self.metagraph.netuid,
@@ -203,7 +203,7 @@ class BaseMinerNeuron(BaseNeuron):
                 version_key=self.spec_version,
             )
 
-            bt.logging.debug('Result: %s'%str(result))
+            # bt.logging.debug('Result: %s'%str(result))
 
         except Exception as e:
             bt.logging.error(

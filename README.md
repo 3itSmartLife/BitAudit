@@ -48,11 +48,6 @@ Before you proceed with the installation of the subnet, note the following:
 ### Install
 This repository requires python3.8 or higher. To install, simply clone this repository and install the requirements.
 
-#### Bittensor
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/opentensor/bittensor/master/scripts/install.sh)"
-```
-
 #### Clone the repository from Github
 ```bash
 git clone https://github.com/3itSmartLife/bitaudit.git
@@ -74,18 +69,7 @@ npm i -g pm2
 
 ## Running Miners and Validators on BitAudit
 ### Running subtensor locally
-#### Install Docker
-```bash
-apt install docker.io -y
-apt install docker-compose -y
-```
-
-#### Run Subtensor locally
-```bash
-git clone https://github.com/opentensor/subtensor.git
-cd subtensor
-docker compose up mainnet-lite
-```
+Follow the instructions at : https://docs.bittensor.com/getting-started/running-a-public-subtensor
 
 ### Running miner
 Miners audit smart contracts written in Solidity utilizing various LLMs. \

@@ -5,7 +5,7 @@ from typing import Optional, Text
 import json
 import tiktoken
 import bittensor as bt
-
+import random
 
 def refactor_codes(code: Text):
     """
@@ -23,19 +23,22 @@ def refactor_codes(code: Text):
         return {'new_codes': code, 'refactor_table': {}}
 
     # Refactor contract names, variable names, and function names using GPT-3.5
-    try:
-        refactor = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
-        response = refactor.chat.completions.create(
-            model=REFACTOR_MODEL,
-            temperature=REFACTOR_TEMPERATURE,
-            messages=[
-                {'role': 'system', 'content': REFACTOR_PROMPT},
-                {'role': 'user', 'content': code}
-            ],
-            max_tokens=OPENAI_COMPLETIONS_MAX_TOKENS
-        )
+    if random.random() > REFACTOR_RATE:
+        try:
+            refactor = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+            response = refactor.chat.completions.create(
+                model=REFACTOR_MODEL,
+                temperature=REFACTOR_TEMPERATURE,
+                messages=[
+                    {'role': 'system', 'content': REFACTOR_PROMPT},
+                    {'role': 'user', 'content': code}
+                ],
+                max_tokens=OPENAI_COMPLETIONS_MAX_TOKENS
+            )
 
-        return json.loads(response.choices[0].message.content)
-    except Exception as e:
-        bt.logging.error("Got an Error: %s"%e)
+            return json.loads(response.choices[0].message.content)
+        except Exception as e:
+            bt.logging.error("Got an Error: %s"%e)
+            return {'new_codes': code, 'refactor_table': {}}
+    else:
         return {'new_codes': code, 'refactor_table': {}}

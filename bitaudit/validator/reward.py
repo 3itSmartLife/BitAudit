@@ -73,7 +73,7 @@ def reward(self, label: dict, response: dict, response_time) -> float:
     if total_vuls > 0:
         try:
             for vul_contract in tp_contracts:
-                response_category = response[vul_contract]
+                response_category = [vulnerability['category'] for vulnerability in response[vul_contract]]
                 label_category = label[vul_contract]
                 if type(response_category) == str:
                     response_category = response_category.strip().split(',')
