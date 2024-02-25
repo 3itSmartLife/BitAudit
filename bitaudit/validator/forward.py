@@ -50,9 +50,9 @@ async def forward(self):
         return
 
     try:
-        smart_contract_path, file_no = generate_random_path(self.config.neuron.dataset_path)
+        smart_contract_path = generate_random_path(self.config.neuron.dataset_path)
         smart_contract = read_contract_code(smart_contract_path)
-        label = generate_labels(self.config.neuron.dataset_path, file_no)
+        label = generate_labels(self.config.neuron.dataset_path, smart_contract_path)
     except Exception as e:
         bt.logging.error("Error loading smart contract code randomly from the dataset")
         bt.logging.error(e)

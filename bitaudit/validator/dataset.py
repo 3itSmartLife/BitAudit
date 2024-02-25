@@ -33,8 +33,7 @@ def generate_random_path(dataset_path):
         bt.logging.info("Directory is empty.")
 
     smart_contract_path = os.path.join(dataset_path, f"smart_contract_dataset/{random_category}/{random_file}")
-    file_no = random_file.split('.')[0]
-    return smart_contract_path, file_no
+    return smart_contract_path
 
 
 def lowercase_dict(input_dict):
@@ -54,12 +53,12 @@ def lowercase_dict(input_dict):
     return processed_dict
 
 
-def generate_labels(dataset_path, file_no):
+def generate_labels(dataset_path, file_path):
     # Load the CSV file
     df = pd.read_csv(os.path.join(dataset_path, "output.csv"))
 
     # Filter the rows based on file number
-    filtered_df = df[df['file'] == int(file_no)]
+    filtered_df = df[df['file'] == int(file_path.split('.')[0].split('\\')[2]) and df['subdataset'] == file_path.split('.')[0].split('\\')[0]]
 
     # Check if 'ground truth' has a single unique value
     unique_ground_truth_values = filtered_df[filtered_df['ground truth'] == 1]
