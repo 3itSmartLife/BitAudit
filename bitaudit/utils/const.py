@@ -12,7 +12,7 @@ Do not include others in response except the json.
 Response:
 """
 
-HUGGINGFACE_REPO_ID = "3it/bitaudit_verification_dataset"
+HUGGINGFACE_REPO_ID = "3it/bitaudit_verification_dataset_v2"
 OPENAI_COMPLETIONS_MODEL = "gpt-3.5-turbo"
 OPENAI_COMPLETIONS_MAX_TOKENS = 4096
 OPENAI_COMPLETIONS_TEMPERATURE = 0
