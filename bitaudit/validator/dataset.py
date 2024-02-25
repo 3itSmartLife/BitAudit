@@ -18,8 +18,9 @@ def download_dataset(download_path):
 
 
 def generate_random_path(dataset_path):
+    random_subset = random.choice(VALIDATION_SUBSET)
     random_category = random.choice(VULNERABILITY_CATEGORY)
-    directory_path = os.path.join(dataset_path, f"smart_contract_dataset/{random_category}")
+    directory_path = os.path.join(dataset_path, f"{random_subset}/{random_category}")
 
     # Get a list of all files in the directory
     files = [f for f in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, f))]
@@ -32,7 +33,7 @@ def generate_random_path(dataset_path):
     else:
         bt.logging.info("Directory is empty.")
 
-    smart_contract_path = os.path.join(dataset_path, f"smart_contract_dataset/{random_category}/{random_file}")
+    smart_contract_path = os.path.join(dataset_path, f"{random_subset}/{random_category}/{random_file}")
     return smart_contract_path
 
 
@@ -58,7 +59,7 @@ def generate_labels(dataset_path, file_path):
     df = pd.read_csv(os.path.join(dataset_path, "output.csv"))
 
     # Filter the rows based on file number
-    filtered_df = df[df['file'] == int(file_path.split('.')[0].split('\\')[2]) and df['subdataset'] == file_path.split('.')[0].split('\\')[0]]
+    filtered_df = df[df['file'] == int(file_path.split('.')[0].split('\\')[-1]) and df['subdataset'] == file_path.split('.')[-3].split('\\')[0]]
 
     # Check if 'ground truth' has a single unique value
     unique_ground_truth_values = filtered_df[filtered_df['ground truth'] == 1]
