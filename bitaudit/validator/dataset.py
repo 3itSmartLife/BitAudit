@@ -59,7 +59,8 @@ def generate_labels(dataset_path, file_path):
     df = pd.read_csv(os.path.join(dataset_path, "output.csv"))
 
     # Filter the rows based on file number
-    filtered_df = df[df['file'] == int(file_path.split('.')[0].split('/')[-1]) and df['subdataset'] == file_path.split('.')[0].split('/')[-3]]
+    filtered_df = df[df['file'] == int(file_path.split('.')[0].split('/')[-1])]
+    filtered_df = filtered_df[filtered_df['subdataset'] == file_path.split('.')[0].split('/')[-3]]
 
     # Check if 'ground truth' has a single unique value
     unique_ground_truth_values = filtered_df[filtered_df['ground truth'] == 1]
