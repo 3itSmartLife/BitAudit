@@ -57,9 +57,11 @@ def lowercase_dict(input_dict):
 def generate_labels(dataset_path, file_path):
     # Load the CSV file
     df = pd.read_csv(os.path.join(dataset_path, "output.csv"))
+    print(file_path.split('.')[0].split('/')[-1])
+    print(file_path.split('.')[-3].split('/')[0])
 
     # Filter the rows based on file number
-    filtered_df = df[df['file'] == int(file_path.split('.')[0].split('\\')[-1]) and df['subdataset'] == file_path.split('.')[-3].split('\\')[0]]
+    filtered_df = df[df['file'] == int(file_path.split('.')[0].split('/')[-1]) and df['subdataset'] == file_path.split('.')[-3].split('/')[0]]
 
     # Check if 'ground truth' has a single unique value
     unique_ground_truth_values = filtered_df[filtered_df['ground truth'] == 1]
