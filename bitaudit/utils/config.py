@@ -106,14 +106,14 @@ def add_args(cls, parser):
         "--neuron.epoch_length",
         type=int,
         help="The default epoch length (how often we set weights, measured in 12 second blocks).",
-        default=50,
+        default=20,
     )
 
     parser.add_argument(
         "--neuron.sync_length",
         type=int,
         help="The default sync length (how often we resync metagraph, measured in 12 second blocks).",
-        default=20,
+        default=50,
     )
 
     parser.add_argument(

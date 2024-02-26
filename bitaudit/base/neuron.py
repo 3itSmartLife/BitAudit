@@ -98,6 +98,7 @@ class BaseNeuron(ABC):
             f"Running neuron on subnet: {self.config.netuid} with uid {self.uid} using network: {self.subtensor.chain_endpoint}"
         )
         self.step = 0
+        self.last_sync_try_step = 0
 
     @abstractmethod
     async def forward(self, synapse: bt.Synapse) -> bt.Synapse:
@@ -115,6 +116,7 @@ class BaseNeuron(ABC):
         self.check_registered()
 
         if self.should_sync_metagraph():
+            self.last_sync_try_step = self.step
             self.resync_metagraph()
 
         if self.should_set_weights():
@@ -139,9 +141,9 @@ class BaseNeuron(ABC):
         """
         Check if enough epoch blocks have elapsed since the last checkpoint to sync.
         """
-        return (
+        return ((
             self.block - self.metagraph.last_update[self.uid]
-        ) > self.config.neuron.sync_length
+        ) > self.config.neuron.sync_length) and ((self.step - self.last_sync_try_step) > self.config.neuron.sync_length)
 
     def should_set_weights(self) -> bool:
         # Don't set weights on initialization.

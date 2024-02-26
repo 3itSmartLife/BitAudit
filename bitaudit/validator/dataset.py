@@ -29,7 +29,7 @@ def generate_random_path(dataset_path):
     if files:
         # Choose a random file from the list
         random_file = random.choice(files)
-        bt.logging.info("Randomly chosen file:", random_file)
+        bt.logging.info("Randomly chosen file:", os.path.join(dataset_path, f"{random_subset}/{random_category}/{random_file}"))
     else:
         bt.logging.info("Directory is empty.")
 
